@@ -1,9 +1,9 @@
 package com.example.junithelloworld.banking;
 
 public class Balance {
-    private int value;
+    private long value;
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 
@@ -11,20 +11,19 @@ public class Balance {
         return value > 0;
     }
 
-    public void deposit(int deposit) {
+    public void deposit(long deposit) {
         if (deposit <= 0) {
-            throw new IneligibleDepositsException(
-                "The deposit is not valid, must be positive"
+            throw new IneligibleDepositException(
+                ExceptionMessage.INELIGIBLE_DEPOSIT.getValue()
             );
         }
         value += deposit;
     }
 
-    public void withdraw(int withdrawnMoney) {
+    public void withdraw(long withdrawnMoney) {
         if (value < withdrawnMoney) {
             throw new InsufficientFundsException(
-                "The current balance is only " + value +
-                "and insufficient to withdraw."
+                ExceptionMessage.INSUFFICIENT_FUNDS.getValue()
             );
         }
         value -= withdrawnMoney;
