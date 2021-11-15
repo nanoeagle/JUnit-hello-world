@@ -28,4 +28,9 @@ public class Balance {
         }
         value -= withdrawnMoney;
     }
+
+    @Override
+    public String toString() {
+        return Long.toString(value);
+    }
 }

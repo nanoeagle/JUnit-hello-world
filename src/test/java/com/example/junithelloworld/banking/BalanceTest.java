@@ -36,28 +36,30 @@ public class BalanceTest {
     }
 
     @Test(expected = IneligibleDepositException.class)
-    public void throwIneligibleDepositExceptionWhenDepositIsNotPositive() {
-        long notPositiveNumber = Math.round(Math.random() * (-1));
-        balance.deposit(notPositiveNumber);
+    public void depositingUnrealDepositThrowsExpectedException() {
+        long unrealDeposit = Math.round(Math.random() * (-1));
+        balance.deposit(unrealDeposit);
     }
 
     @Test
-    public void throwIneligibleDepositExceptionWhenDepositIsNotPositive_Assert() {
+    public void depositingUnrealDepositThrowsExpectedException_Assert() {
         assertThrows(IneligibleDepositException.class, () -> {
-            long notPositiveNumber = Math.round(Math.random() * (-1));
-            balance.deposit(notPositiveNumber);
+            long unrealDeposit = Math.round(Math.random() * (-1));
+            balance.deposit(unrealDeposit);
         });
     }
 
     @Test
-    public void verifyExceptionMessageWhenDepositIsNotPositive() {
+    public void depositingUnrealDepositNotifiesExpectedMessage() {
+        String expectedMes = 
+            ExceptionMessage.INELIGIBLE_DEPOSIT.getValue();
         try {
-            long notPositiveNumber = Math.round(Math.random() * (-1));
-            balance.deposit(notPositiveNumber);
+            long unrealDeposit = Math.round(Math.random() * (-1));
+            balance.deposit(unrealDeposit);
             fail("Does not get the expected exception.");
-        } catch (IneligibleDepositException expected) {
-            MatcherAssert.assertThat(expected.getMessage(), equalTo(
-                ExceptionMessage.INELIGIBLE_DEPOSIT.getValue()));
+        } catch (IneligibleDepositException e) {
+            MatcherAssert.assertThat(e.getMessage(), 
+                equalTo(expectedMes));
         }
     }
 
@@ -71,24 +73,26 @@ public class BalanceTest {
     }
 
     @Test(expected = InsufficientFundsException.class)
-    public void throwInsufficientFundsExceptionWhenOverdrawing() {
+    public void overdrawingThrowsExpectedException() {
         balance.withdraw(money);
     }
 
     @Test
-    public void throwInsufficientFundsExceptionWhenOverdrawing_Assert() {
-        assertThrows(InsufficientFundsException.class, () -> 
-            balance.withdraw(money));
+    public void overdrawingThrowsExpectedException_Assert() {
+        assertThrows(InsufficientFundsException.class, 
+            () -> balance.withdraw(money));
     }
 
     @Test
-    public void verifyExceptionMessageWhenOverdrawing() {
+    public void overdrawingNotifiesExpectedMessage() {
+        String expectedMes = 
+            ExceptionMessage.INSUFFICIENT_FUNDS.getValue();
         try {
             balance.withdraw(money);
             fail("Does not get the expected exception.");
-        } catch (InsufficientFundsException expected) {
-            MatcherAssert.assertThat(expected.getMessage(), equalTo(
-                ExceptionMessage.INSUFFICIENT_FUNDS.getValue()));
+        } catch (InsufficientFundsException e) {
+            MatcherAssert.assertThat(e.getMessage(), 
+                equalTo(expectedMes));
         }
     }
 }
