@@ -16,10 +16,10 @@ public class RestrictsSides extends TypeSafeMatcher<Rectangle> {
     }
         
     @Override
-    protected boolean matchesSafely(Rectangle rect) {
+    protected boolean matchesSafely(Rectangle actualRect) {
         return 
-            Math.abs(rect.getOrigin().x - rect.getOpposite().x) <= maxLength &&
-            Math.abs(rect.getOrigin().y - rect.getOpposite().y) <= maxLength;
+            Math.abs(actualRect.getOrigin().x - actualRect.getOpposite().x) <= maxLength &&
+            Math.abs(actualRect.getOrigin().y - actualRect.getOpposite().y) <= maxLength;
     }
     
     @Factory

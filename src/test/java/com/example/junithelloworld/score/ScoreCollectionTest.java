@@ -15,15 +15,19 @@ public class ScoreCollectionTest {
 
     @Test
     public void calculatingArithmeticMeanOfSomeScoresResultsInExpectedNumber() {
+        double expectedNumber = createExpectedNumber();
+        assertThat(collection.calculateArithmeticMean(), 
+            equalTo(expectedNumber));
+    }
+
+    private double createExpectedNumber() {
         int[] scores = {Integer.MAX_VALUE, 7, 3};
         double sum = 0;
         for (int score : scores) {
             collection.add(() -> score);
             sum += score;
         }
-        double expectedNumber = sum / scores.length;
-        assertThat(collection.calculateArithmeticMean(), 
-            equalTo(expectedNumber));
+        return sum / scores.length;
     }
 
     @Test(expected = IllegalArgumentException.class)

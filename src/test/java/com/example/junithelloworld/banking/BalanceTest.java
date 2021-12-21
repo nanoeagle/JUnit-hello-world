@@ -58,8 +58,7 @@ public class BalanceTest {
             balance.deposit(unrealDeposit);
             fail("Does not get the expected exception.");
         } catch (IneligibleDepositException e) {
-            MatcherAssert.assertThat(e.getMessage(), 
-                equalTo(expectedMes));
+            MatcherAssert.assertThat(e.getMessage(), equalTo(expectedMes));
         }
     }
 
